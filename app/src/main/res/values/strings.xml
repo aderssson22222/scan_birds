@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ScanBirds</string>
+    <string name="scan_birds">SCAN BIRDS</string>
+    <string name="login">login</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="logo">logo</string>
+</resources>
