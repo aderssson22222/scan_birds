@@ -4,4 +4,8 @@
     <string name="login">login</string>
     <string name="registrarse">Registrarse</string>
     <string name="logo">logo</string>
+    <string name="navegation_drawer_open">Open</string>
+    <string name="navegation_drawer_close">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
