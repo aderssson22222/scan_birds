@@ -1,5 +1,6 @@
 package com.example.scanbirds
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -35,11 +36,26 @@ class scan : AppCompatActivity() {
         }
 
         binding.buttonSavePictureHall.setOnClickListener {
-            val nombreAve:String = binding.nombreAve.toString()
-            val departamentoAve:String = binding.departamentoAve.toString()
-            val userPicture:String=("culito")
-
+            saveBird()
         }
+    }
+    fun saveBird(){
+        val nombreAve: String = binding.nombreAve.text.toString()
+        val departamentoAve: String = binding.departamentoAve.text.toString()
+        val foto: String = file.toString()
+        val userPicture:String=("mish@gmail.com")
+
+        var pref = getSharedPreferences("${userPicture}_${nombreAve}", Context.MODE_PRIVATE)
+        var edit = pref.edit()
+        edit.putString("id_ave","${userPicture}_${nombreAve}")
+        edit.putString("nombreAve",nombreAve)
+        edit.putString("departamentoAve",departamentoAve)
+        edit.putString("foto",foto)
+
+        edit.commit()
+        Toast.makeText(this, "Scaneada Ave con exito", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ScanFragment::class.java)
+        startActivity(intent)
     }
     val tomarFoto =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "316646945100",
+    "project_id": "scan-birds-fcdb7",
+    "storage_bucket": "scan-birds-fcdb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316646945100:android:c8a1e25365a7b814d55fe9",
+        "android_client_info": {
+          "package_name": "com.example.scanbirds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316646945100-tu9mq4gjqe09bed0v1bk622afmv07hhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scanbirds",
+            "certificate_hash": "894c1401f578f494b2ba5b39592bb4e5580a1063"
+          }
+        },
+        {
+          "client_id": "316646945100-pof3ff2kvil705jlrf82ftdaao8f2i7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3AbiVvYjlTlN2GIjJAz2c4g40vnlTFrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316646945100-pof3ff2kvil705jlrf82ftdaao8f2i7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

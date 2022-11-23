@@ -28,26 +28,33 @@ class home : AppCompatActivity() {
         val nombres = intent.getStringExtra("nombres")
         val apellidos = intent.getStringExtra("apellidos")
 
-        Toast.makeText(this, "Bienvenid@ a SCAN BIRDS $nombres $apellidos", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Bienvenid@ a SCAN BIRDS $nombres $apellidos", Toast.LENGTH_LONG)
+            .show()
         val scan_F = ScanFragment()
         val bundle = Bundle()
-        bundle.putString("email",email)
-        scan_F.arguments=bundle
+        bundle.putString("email", email)
+        scan_F.arguments = bundle
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.tolbar_main)
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-        toggle = ActionBarDrawerToggle(this,drawer,toolbar,R.string.navegation_drawer_open,R.string.navegation_drawer_close)
+        toggle = ActionBarDrawerToggle(
+            this,
+            drawer,
+            toolbar,
+            R.string.navegation_drawer_open,
+            R.string.navegation_drawer_close
+        )
         drawer.addDrawerListener(toggle)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
         val navigationView: NavigationView = findViewById(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener{
+        navigationView.setNavigationItemSelectedListener {
             it.isChecked = true
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.item1 -> replaceFragment(InicioFragment(), it.title.toString())
                 R.id.item2 -> replaceFragment(PerfilFragment(), it.title.toString())
                 R.id.item3 -> replaceFragment(ExplorarFragment(), it.title.toString())
@@ -61,17 +68,17 @@ class home : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment, title : String){
+    private fun replaceFragment(fragment: Fragment, title: String) {
         val fragmentManager = supportFragmentManager
-        val fragmentTransaction= fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout,fragment)
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.commit()
         drawer.closeDrawers()
         setTitle(title)
     }
 
 
-    fun cerrar(){
+    fun cerrar() {
         val intent = Intent(this, inicio::class.java)
         startActivity(intent)
     }

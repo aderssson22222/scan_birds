@@ -6,8 +6,11 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import com.example.scanbirds.databinding.ActivityLoginBinding
 import com.example.scanbirds.databinding.ActivityRegistroBinding
+import kotlinx.coroutines.launch
 
 class registro : AppCompatActivity() {
 
@@ -63,6 +66,20 @@ class registro : AppCompatActivity() {
                 Toast.makeText(this, "La contraseñas no coinciden", Toast.LENGTH_LONG).show()
             } else {
 
+
+                val room =
+                    Room.databaseBuilder(this, bdUsuarios::class.java, "bd_scanbirds").build()
+
+                var usuario = Usuario_Entidad(correo, nombres, apellidos, telefono, direccion, cotrasena)
+                lifecycleScope.launch {
+                room.daoUsuario().agregarusuario(usuario)
+                var lista = room.daoUsuario().obtenerUsuarios()
+                    for (usu in lista){
+                        println("----------->>>>>${usu.email} -- ${usu.nombres}--${usu.apellidos}")
+                    }
+                }
+
+                /* Guardar en local
                 var pref = getSharedPreferences(correo, Context.MODE_PRIVATE)
                 var editar = pref.edit()
                 editar.putString("email", correo)
@@ -72,7 +89,8 @@ class registro : AppCompatActivity() {
                 editar.putString("telefono", telefono)
                 editar.putString("contraseña", cotrasena)
 
-                editar.commit()
+                editar.commit()*/
+
                 Toast.makeText(this, "Usuario Registrado Exitosamente", Toast.LENGTH_LONG).show()
                 val intent: Intent = Intent(this, login::class.java)
                 startActivity(intent)
