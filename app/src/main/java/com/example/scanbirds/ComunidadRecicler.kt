@@ -4,13 +4,20 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ActionMenuView.OnMenuItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
-class ComunidadRecicler(var listComunity: MutableList<ComunidadItems>):RecyclerView.Adapter<ComunidadRecicler.MyHolder>() {
+class ComunidadRecicler(var listComunity: MutableList<ComunidadItems>, private val itemClickListener: clickComunidad):
+    RecyclerView.Adapter<ComunidadRecicler.MyHolder>() {
 
+    interface clickComunidad{
+        fun onItemClick(comunidad: ComunidadItems)
+    }
      inner class MyHolder(itemView: View): RecyclerView.ViewHolder(itemView){
              lateinit var nombres:TextView
              lateinit var apellidos:TextView
@@ -24,6 +31,8 @@ class ComunidadRecicler(var listComunity: MutableList<ComunidadItems>):RecyclerV
                 avez = itemView.findViewById(R.id.Item_Avez)
                 rango = itemView.findViewById(R.id.Item_Rango)
                 avatar= itemView.findViewById(R.id.Item_Imagen)
+
+
             }
      }
 
@@ -38,7 +47,13 @@ class ComunidadRecicler(var listComunity: MutableList<ComunidadItems>):RecyclerV
         holder.apellidos.text=comunidad.apellidos
         holder.avez.text=comunidad.avez
         holder.rango.text=comunidad.rango
-        holder.avatar.setImageResource(comunidad.avatar)
+        Glide.with(holder.itemView)
+            .load(comunidad.avatar)
+            .into(holder.avatar);
+        //holder.avatar.setImageResource(comunidad.avatar)
+        holder.itemView.setOnClickListener{
+            itemClickListener.onItemClick(comunidad)
+        }
     }
 
     override fun getItemCount(): Int {

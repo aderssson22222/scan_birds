@@ -34,12 +34,12 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/Usuario"
+        android:id="@+id/UsuarioRecuperar"
         android:layout_width="393dp"
         android:layout_height="70dp"
         android:background="@drawable/border_round"
         android:ems="10"
-        android:hint="ID USUARIO / CORREO"
+        android:hint="CORREO"
         android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
         app:srcCompat="@drawable/logo" />
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/btnRecuperar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -67,5 +67,5 @@
         android:text="recuperar contraseña"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Usuario" />
+        app:layout_constraintTop_toBottomOf="@+id/UsuarioRecuperar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

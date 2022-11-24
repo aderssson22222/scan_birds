@@ -15,15 +15,22 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class home : AppCompatActivity() {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        firebaseAuth = Firebase.auth
+        /*
         val email = intent.getStringExtra("email")
         val nombres = intent.getStringExtra("nombres")
         val apellidos = intent.getStringExtra("apellidos")
@@ -34,6 +41,7 @@ class home : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putString("email", email)
         scan_F.arguments = bundle
+         */
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.tolbar_main)
         setSupportActionBar(toolbar)
@@ -79,6 +87,7 @@ class home : AppCompatActivity() {
 
 
     fun cerrar() {
+        firebaseAuth.signOut()
         val intent = Intent(this, inicio::class.java)
         startActivity(intent)
     }

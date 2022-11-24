@@ -11,10 +11,14 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.scanbirds.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class login : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
+    lateinit var firebaseAuth: FirebaseAuth
 
     var pass:String?=""
     var correo:String?=""
@@ -27,6 +31,7 @@ class login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        firebaseAuth = Firebase.auth
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,6 +43,7 @@ class login : AppCompatActivity() {
 
         binding.buttonLogin.setOnClickListener {
 
+            /* Validacion en bd local
             correo = binding.Usuario.text.toString()
             pass = binding.Contrasena.text.toString()
 
@@ -67,8 +73,8 @@ class login : AppCompatActivity() {
                         noexiste()
                     }
                 }
-            }
-
+            }*/
+            valisarFirebase()
         }
 
     }
@@ -124,5 +130,34 @@ class login : AppCompatActivity() {
 
     fun noexiste(){
         Toast.makeText(this, "CORREO NO REGISTRADO EN LA BASE DE DATOS", Toast.LENGTH_LONG).show()
+    }
+
+    fun valisarFirebase(){
+        val correo:String= binding.Usuario.text.toString()
+        val pass:String= binding.Contrasena.text.toString()
+        if (correo.isEmpty()){
+            binding.Usuario.setHint("Ingrese su usuario")
+            binding.Usuario.setHintTextColor(Color.RED)
+        }
+        if (pass.isEmpty()){
+            binding.Contrasena.setHint("Ingrese su contraseña")
+            binding.Contrasena.setHintTextColor(Color.RED)
+        }
+        if (correo!="" && pass!=""){
+            firebaseAuth.signInWithEmailAndPassword(correo,pass).addOnCompleteListener(this){
+                task ->
+                if(task.isSuccessful){
+                    val user = firebaseAuth.currentUser
+                    if (user != null) {
+                        Toast.makeText(this, "Bienvenido ${user.email}", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this, home::class.java))
+                    }
+                }else{
+                    Toast.makeText(this, "CREDENCIALES INCORRECTAS", Toast.LENGTH_LONG).show()
+                }
+            }
+
+
+        }
     }
 }

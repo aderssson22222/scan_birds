@@ -13,17 +13,22 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import com.example.scanbirds.databinding.ActivityScanBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.io.File
 
 class scan : AppCompatActivity() {
     lateinit var binding: ActivityScanBinding
+    lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val email = intent.getStringExtra("email")
-        Toast.makeText(this, "Bienvenid@ a SCAN BIRDS $email", Toast.LENGTH_LONG).show()
+        firebaseAuth = Firebase.auth
+
+
 
         binding.btnCamera.setOnClickListener {
             //tomarFoto.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
@@ -43,11 +48,12 @@ class scan : AppCompatActivity() {
         val nombreAve: String = binding.nombreAve.text.toString()
         val departamentoAve: String = binding.departamentoAve.text.toString()
         val foto: String = file.toString()
-        val userPicture:String=("mish@gmail.com")
+        val userPicture = firebaseAuth.currentUser?.email.toString()
 
         var pref = getSharedPreferences("${userPicture}_${nombreAve}", Context.MODE_PRIVATE)
         var edit = pref.edit()
         edit.putString("id_ave","${userPicture}_${nombreAve}")
+        edit.putString("correo",userPicture)
         edit.putString("nombreAve",nombreAve)
         edit.putString("departamentoAve",departamentoAve)
         edit.putString("foto",foto)
